@@ -1,0 +1,67 @@
+body {
+  position: relative;
+  background: linear-gradient(180deg, #0575e6 0%, #02298a 84.79%, #021b79 100%);
+}
+
+html {
+  height: 100%;
+}
+
+.bg-custom-color {
+  background: linear-gradient(180deg, #0575e6 0%, #02298a 84.79%, #021b79 100%);
+}
+
+.wrapper-background {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(4px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 15px;
+  height: 100%;
+}
+
+.border-radius-15 {
+  border-radius: 15px;
+}
+
+.error {
+  height: 250px;
+  overflow-y: auto;
+}
+
+.btn-blue {
+  background: #55acee;
+  border-color: #55acee;
+}
+
+.btn-blue:hover {
+  background: #458cc2;
+  border-color: #458cc2;
+}
+
+.table-wrapper {
+  width: 100%;
+  max-height: 776px;
+  overflow: auto;
+  background: white;
+  margin: 10px 0;
+}
+
+.img-icon {
+  width: 125px;
+  height: 125px;
+}
+
+.img-icon-tweets {
+  width: 25px;
+  height: 25px;
+}
+
+.btn-white {
+  background: #f3f3f3;
+  border-color: #f3f3f3;
+}
+
+.btn-white:hover {
+  background: #fff;
+  border-color: #fff;
+}

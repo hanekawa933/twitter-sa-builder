@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-avatar@latest/dist/avatar.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="{{url_for('static', filename='css/style.css')}}"
+      rel="stylesheet"
+    />
+    <link href="{{url_for('static', filename='assets/open-iconic/font/css/open-iconic.css')}}" rel="stylesheet">
+    <title>TSA | Result</title>
+  </head>
+  <body>
+    <div class="w-100 bg-custom-color px-5 pb-3">
+        <div class="d-flex w-100 justify-content-between align-items-center p-3">
+            <img src="{{url_for('static', filename='svg/logo.svg')}}" />
+            <div class="text-center">
+              <h1 class="font-weight-bold text-uppercase text-light">
+                Twitter Sentiment Analysis Builder
+              </h1>
+            </div>
+        </div>
+        <a href="/" class="btn btn-white mb-3"><span class="oi" data-glyph="arrow-left" class="mt-1"></span><span>Try Again</span></a>
+        <div class="wrapper-background p-5 mb-5">
+        <h1 class="mb-2 text-light">Search: {{query}}</h1>
+        <h1 class="mb-2 text-light">Sentiment Result</h1>
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="text-dark col-6 p-3">
+                            <div class="bg-light border-radius-15 mx-1 py-3 d-flex justify-content-center align-items-center">
+                                <div>
+                                    <img src="{{url_for('static', filename='img/positive.png')}}" alt="Icon for Positive" class="img-icon" />
+                                    <p class="font-weight-bold text-center">Positive</p>
+                                </div>
+                                <div class="mx-3">
+                                    <div class="font-weight-bold text-center">{{data['tweet_analytic']['positive_result']}} tweets</div>
+                                    <div class="font-weight-bold text-center">{{data['tweet_analytic']['positive']}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" text-dark col-6 p-3">
+                            <div class="bg-light border-radius-15 mx-1 py-3 d-flex justify-content-center align-items-center">
+                            <div>
+                                <img src="{{url_for('static', filename='img/negative.png')}}" alt="Icon for negative" class="img-icon" />
+                                <p class="font-weight-bold text-center">Negative</p>
+                            </div>
+                            <div class="mx-3">
+                                <div class="font-weight-bold text-center">{{data['tweet_analytic']['negative_result']}} tweets</div>
+                                <div class="font-weight-bold text-center">{{data['tweet_analytic']['negative']}}</div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="text-dark col-12 p-3">
+                            <div class="bg-light border-radius-15 mx-1 py-3 d-flex justify-content-center align-items-center">
+                                <div>
+                                    <img src="{{url_for('static', filename='img/neutral.png')}}" alt="Icon for neutral" class="img-icon" />
+                                    <p class="font-weight-bold text-center">Neutral</p>
+                                </div>
+                                <div class="mx-3">
+                                    <div class="font-weight-bold text-center">{{data['tweet_analytic']['neutral_result']}} tweets</div>
+                                    <div class="font-weight-bold text-center">{{data['tweet_analytic']['neutral']}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <image src="{{image}}" alt="Graph" />
+                </div>
+            </div>
+            <div class="my-3">
+              <h1 class="mb-2 text-light">Tweet Result</h1>
+              <div class="table-wrapper">
+                  {% for tweet in data['tweet_data'] %}
+                    <div class="d-flex justify-content-center align-items-center flex-column border-top border-bottom border-dark py-3">
+                        <div class="d-flex justify-content-center align-items-center">
+                            {% if tweet['tweet_score'] > 0.0 %}
+                                <img src="{{url_for('static', filename='img/positive.png')}}" alt="Icon for Positive" class="img-icon-tweets" />
+                            {% elif tweet['tweet_score'] < 0.0 %}
+                                <img src="{{url_for('static', filename='img/negative.png')}}" alt="Icon for negative" class="img-icon-tweets" />
+                            {% else %}
+                                <img src="{{url_for('static', filename='img/neutral.png')}}" alt="Icon for neutral" class="img-icon-tweets" />
+                            {% endif %}
+                            <div class="mx-3">{{tweet['tweet_sentiment']}} tweet</div>
+                        </div>
+                        <blockquote class="twitter-tweet">
+                            <p lang="en" dir="ltr">{{tweet['user_tweet']}}</p>
+                            &mdash; {{tweet['user_name']}} (@{{tweet['user_screen']}})
+                            <a href="{{tweet['user_tweet_url']}}}">December 24, 2021</a>
+                        </blockquote>
+                    </div>
+                  {% endfor %}
+                </div>
+            </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script
+      async
+      src="https://platform.twitter.com/widgets.js"
+      charset="utf-8"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-avatar@latest/dist/avatar.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="{{url_for('static', filename='css/style.css')}}"
+      rel="stylesheet"
+    />
+    <title>TSA | Homepage</title>
+  </head>
+  <body>
+    <div class="w-100 bg-custom-color px-5">
+      <div class="d-flex w-100 justify-content-between align-items-center p-3">
+        <img src="{{url_for('static', filename='svg/logo.svg')}}" />
+        <div class="text-center">
+          <h1 class="font-weight-bold text-uppercase text-light">
+            Twitter Sentiment Analysis Builder
+          </h1>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4">
+          <div>
+            <div
+              class="p-3 text-center text-secondary bg-light border-radius-15"
+            >
+              Twitter-Sentiment Analysis automation is a program to make you
+              auotomate a topic in Twitter based on your own query. The program
+              makes you easier to known about general information either a topic
+              is having a positive, negative or neutral feedback. Use your own
+              key and your are good to go.
+            </div>
+            <div
+              class="
+                p-3
+                text-center text-secondary
+                bg-light
+                mt-4
+                border-radius-15
+              "
+            >
+              Disclamer : We don't save any of your API key we just use it to
+              run with your own API key to avoid waiting for certain minutes for
+              each run. You can empty the API Key and need to wait if it's on
+              cooldown
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <img src="{{url_for('static', filename='svg/point.svg')}}" />
+          </div>
+        </div>
+        <div class="col-8 wrapper-background p-4">
+          <form method="POST" class="w-100">
+            <div class="form-check">
+              <input
+                name="default_key"
+                class="form-check-input"
+                type="checkbox"
+                value="true"
+                id="checkbox"
+              />
+              <label class="form-check-label text-light" for="flexCheckDefault">
+                Default API and Access Key
+              </label>
+            </div>
+            <div class="row my-3">
+              <div class="col">
+                <div class="form-group">
+                  <label class="mb-2 text-light" for="API Key">API Key</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Provide Your API Key"
+                    name="api_key"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="mb-2 text-light" for="API Key mb-1"
+                    >API Secret Key</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Provide Your API Key Secret"
+                    name="api_key_secret"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col">
+                <div class="form-group">
+                  <label class="mb-2 text-light" for="Access Token"
+                    >Access Token</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Provide Your Access Token"
+                    name="access_token"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="mb-2 text-light" for="Access Token Secret"
+                    >Access Token Secret</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Provide Your Access Token Secret"
+                    name="access_token_secret"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="mb-2 text-light" for="Query">Query</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Find your tweets, eg: Manchester United"
+                name="query"
+              />
+            </div>
+            <div class="row my-3">
+              <div class="col">
+                <div class="form-group">
+                  <label class="mb-2 text-light" for="Max Tweet"
+                    >Max Tweet</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Provide Your Max Tweet"
+                    name="max_tweet"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="mb-2 text-light" for="Available Language"
+                    >Available Language</label
+                  >
+                  <select
+                    class="form-select"
+                    placeholder="Provide Your Available Language"
+                    name="language"
+                  >
+                    <option selected value="">Select Available Language</option>
+                    <option value="id">Indonesia - ID</option>
+                    <option value="en">English - EN</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="my-3">
+              <div class="mb-2 text-light">Error Message</div>
+              <div
+                class="
+                  error
+                  w-100
+                  p-3
+                  bg-light
+                  text-secondary
+                  h-error-message
+                  rounded
+                  text-danger
+                "
+              >
+                {% if is_posted == "default" %} {{data}} {% else %} {{
+                data['error']}} {% endif %}
+              </div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+              <button type="submit" class="btn btn-blue text-light">
+                Processed
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script
+      async
+      src="https://platform.twitter.com/widgets.js"
+      charset="utf-8"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        $("#checkbox").on("change", function () {
+          const checkbox = $("#checkbox").is(":checked");
+          const api_key = $("input[name='api_key']");
+          const api_key_secret = $("input[name='api_key_secret']");
+          const access_token = $("input[name='access_token']");
+          const access_token_secret = $("input[name='access_token_secret']");
+
+          if (checkbox) {
+            api_key.prop("disabled", true);
+            api_key_secret.prop("disabled", true);
+            access_token.prop("disabled", true);
+            access_token_secret.prop("disabled", true);
+            api_key.prop("placeholder", "You are using default api key");
+            api_key_secret.prop("placeholder", "You are using default api key");
+            access_token.prop(
+              "placeholder",
+              "You are using default access token"
+            );
+            access_token_secret.prop(
+              "placeholder",
+              "You are using default access token"
+            );
+          } else {
+            api_key.prop("disabled", false);
+            api_key_secret.prop("disabled", false);
+            access_token.prop("disabled", false);
+            access_token_secret.prop("disabled", false);
+
+            api_key.prop("placeholder", "Provide Your API Key");
+            api_key_secret.prop("placeholder", "Provide Your API Key Secret");
+            access_token.prop("placeholder", "Provide Your Access Token");
+            access_token_secret.prop(
+              "placeholder",
+              "Provide Your Access Token Secret"
+            );
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
